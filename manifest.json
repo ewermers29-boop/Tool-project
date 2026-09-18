@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Switchboard",
+  "version": "0.1.0",
+  "description": "A local pattern notice for repeated tab switching.",
+  "permissions": ["tabs", "storage"],
+  "background": { "service_worker": "main.js" },
+  "action": {
+    "default_title": "Open Switchboard",
+    "default_popup": "Index.html"
+  }
+}

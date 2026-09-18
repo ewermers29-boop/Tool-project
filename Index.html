@@ -3,12 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reusable Studio Engine</title>
+  <title>Switchboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <canvas id="canvas"></canvas>
+  <main class="panel" aria-live="polite">
+    <header class="panel-header">
+      <div>
+        <p class="eyebrow">Switchboard</p>
+        <h1>Pattern notice</h1>
+      </div>
+      <span class="tracking-state" id="trackingState">Tracking</span>
+    </header>
+
+    <section class="pattern-view" id="patternView">
+      <p class="signal-label">Current signal</p>
+      <h2 id="patternTitle">No repeated pattern yet.</h2>
+      <p id="patternSummary">Switchboard is watching for repeated movement between tabs.</p>
+      <div class="pattern-stats">
+        <div><span>Switches</span><strong id="switchCount">0</strong></div>
+        <div><span>Window</span><strong id="timeWindow">10 min</strong></div>
+      </div>
+    </section>
+
+    <section class="warning-view is-hidden" id="warningView">
+      <p class="signal-label">Repeated switch detected</p>
+      <h2 id="warningTitle">A repeated pattern is forming.</h2>
+      <p id="warningSummary">This is a measured pattern, not a judgment about why it happened.</p>
+      <div class="choice-actions">
+        <button class="button button-primary" id="returnButton" type="button">Go back to previous tab</button>
+        <button class="button button-secondary" id="continueButton" type="button">Keep going</button>
+      </div>
+      <p class="choice-note" id="choiceNote">You decide what happens next. Switchboard does not block tabs.</p>
+    </section>
+
+    <footer>
+      <span id="historySummary">Local history: 0 switches</span>
+      <button class="text-button" id="clearButton" type="button">Clear history</button>
+    </footer>
+  </main>
 
   <script type="module" src="main.js"></script>
 </body>

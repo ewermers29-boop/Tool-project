@@ -9,18 +9,19 @@
 
 ## Smallest Working Version
 
-- [ ] Replace the canvas starter with a dashboard shell.
-- [ ] Show a current switching pattern with named windows and a count.
-- [ ] Add a non-blocking repeated-switch pause with two user choices.
+- [x] Replace the canvas starter with a dashboard shell.
+- [x] Show a current switching pattern with named windows and a count.
+- [x] Add a non-blocking repeated-switch pause with two user choices.
 - [ ] Add a detailed history view.
-- [ ] Add explicit paused, unavailable, and error tracking states.
+- [x] Add an unavailable tracking state.
 
 ## Local Activity Layer
 
-- [ ] Define an activity event shape: window name, timestamp, and source.
-- [ ] Aggregate consecutive events into switches and repeated pairs.
-- [ ] Store history locally with a versioned schema.
-- [ ] Add permission and clear-history controls.
+- [x] Define an activity event shape: tab names, identifiers, timestamp, and source.
+- [x] Aggregate recent events into switches and repeated pairs.
+- [x] Store history locally with browser extension storage.
+- [x] Add a clear-history control.
+- [ ] Add a separate permission settings screen.
 
 ## Resilience and AI
 
