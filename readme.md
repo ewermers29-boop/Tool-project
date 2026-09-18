@@ -20,11 +20,11 @@ When tracking or an API fails, the interface names the technical problem and pre
 
 ### What data does this tool need?
 
-The Chrome extension uses the active tab or window name, a timestamp for each change, the previous and current tab identifiers when available, and a source label such as `browser`. It uses only enough data to describe switching patterns. It does not use page content, keystrokes, messages, or an inferred reason for switching.
+The webpage records the labels entered by the user, a timestamp for each change, and a source label such as `webpage`. It uses only enough data to describe switching patterns. It does not use page content, keystrokes, messages, or an inferred reason for switching. A normal webpage cannot inspect other browser tabs.
 
 ### Where is it stored?
 
-The data is stored locally in the browser extension's local storage. It is not sent online by default. The user must be able to clear the stored history.
+The data is stored locally in the webpage's `localStorage`. It is not sent online by default. The user must be able to clear the stored history.
 
 ### Is it temporary or persistent?
 
@@ -32,7 +32,7 @@ The activity history is persistent between sessions until the user clears it. A 
 
 ### Does the system need memory between sessions?
 
-Yes. Memory between sessions is needed for the history view and for seeing recurring patterns over time. The extension must show when data was last observed and must not present old data as current if tracking has stopped.
+Yes. Memory between sessions is needed for the history view and for seeing recurring patterns over time. The webpage must show when data was last observed and must not present old data as current if tracking has stopped.
 
 ### Does the system require AI inference?
 
@@ -48,13 +48,13 @@ The local history remains available. The interface says that the optional summar
 
 ## Prototype Architecture
 
-The extension keeps three responsibilities separate:
+The webpage keeps three responsibilities separate:
 
-- **Input layer:** the service worker in `main.js` receives Chrome tab activation events with the current tab identifier and timestamp.
-- **Logic layer:** the service worker stores events, discards events outside the ten-minute window, counts repeated pairs, and triggers a warning after four switches.
-- **Output layer:** `Index.html` displays the detected tabs, count, time window, and a visible choice: return to the previous tab or keep going. It never blocks navigation.
+- **Input layer:** the form in `Index.html` receives the two labels entered for a switch.
+- **Logic layer:** `main.js` stores events, discards events outside the ten-minute window, counts repeated pairs, and triggers a warning after four switches.
+- **Output layer:** `Index.html` displays the recorded labels, count, time window, and a visible choice to continue or dismiss the warning. It never blocks navigation.
 
-The only new file is `manifest.json`, which Chrome requires to load the project as an extension. The existing `Index.html`, `main.js`, and `style.css` provide the popup, processing, and presentation.
+The existing `Index.html`, `main.js`, and `style.css` provide the complete webpage. No extension manifest or installation is required.
 
 ## Behavior Integrity Check
 
@@ -69,7 +69,7 @@ Before coding, the design must pass these checks:
 
 ## How to Run Locally
 
-Open `index.html` in a browser, or use a simple local server through VS Code.
+Open `Index.html` in a browser, or use a simple local server through VS Code.
 
 ## How to Deploy
 

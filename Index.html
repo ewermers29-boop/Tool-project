@@ -27,6 +27,16 @@
       </div>
     </section>
 
+    <section class="record-view" aria-labelledby="recordTitle">
+      <p class="signal-label" id="recordTitle">Record a switch</p>
+      <div class="record-fields">
+        <label>From<input id="fromInput" type="text" value="Work" maxlength="80"></label>
+        <label>To<input id="toInput" type="text" value="Distraction" maxlength="80"></label>
+      </div>
+      <button class="button button-primary" id="recordButton" type="button">Record switch</button>
+      <p class="input-note">This webpage records only the labels you enter. It cannot inspect other tabs.</p>
+    </section>
+
     <section class="warning-view is-hidden" id="warningView">
       <p class="signal-label">Repeated switch detected</p>
       <h2 id="warningTitle">A repeated pattern is forming.</h2>
