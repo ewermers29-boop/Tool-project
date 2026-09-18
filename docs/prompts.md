@@ -28,3 +28,7 @@ Identify the controlling code path first. State one falsifiable hypothesis and o
 ## AI Rule
 
 Every AI-generated code response must be followed by a plain-language explanation of what changed, why it supports the ritual, and what was not changed.
+
+## Prompt Log
+
+- Chrome reports that the unpacked extension manifest is missing or unreadable.
