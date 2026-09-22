@@ -55,19 +55,25 @@ async function recordTabSwitch(tabId) {
 	state.events = keepRecentEvents([...state.events, event], now);
 	state.previousTabId = previousTab.id;
 
+	const totalSwitches = state.events.length;
 	const pairEvents = state.events.filter((item) => {
 		const names = new Set([item.from, item.to, event.from, event.to]);
 		return names.size === 2;
 	});
 
-	if (pairEvents.length >= WARNING_SWITCHES) {
+	if (totalSwitches >= WARNING_SWITCHES || pairEvents.length >= WARNING_SWITCHES) {
 		state.warning = {
 			from: event.from,
 			to: event.to,
-			count: pairEvents.length,
+			count: Math.max(totalSwitches, pairEvents.length),
 			timestamp: now,
 			previousTabId: previousTab.id
 		};
+		try {
+			chrome.action?.openPopup?.();
+		} catch {
+			// Ignore popup-opening failures in restricted contexts.
+		}
 	}
 
 	await writeState(state);
