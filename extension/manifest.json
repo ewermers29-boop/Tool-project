@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Switchboard Tracker",
+  "version": "0.2.0",
+  "description": "Locally tracks Chrome tab switching for the Switchboard dashboard.",
+  "permissions": ["tabs", "storage", "notifications"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://*.netlify.app/*",
+      "http://localhost/*",
+      "http://127.0.0.1/*"
+    ]
+  }
+}

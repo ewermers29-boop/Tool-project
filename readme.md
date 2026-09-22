@@ -20,11 +20,11 @@ When tracking or an API fails, the interface names the technical problem and pre
 
 ### What data does this tool need?
 
-The webpage records the labels entered by the user, a timestamp for each change, and a source label such as `webpage`. It uses only enough data to describe switching patterns. It does not use page content, keystrokes, messages, or an inferred reason for switching. A normal webpage cannot inspect other browser tabs.
+The Chrome extension uses the active tab or window name, a timestamp for each change, the previous and current tab identifiers when available, and a source label such as `browser`. It uses only enough data to describe switching patterns. It does not use page content, keystrokes, messages, or an inferred reason for switching.
 
 ### Where is it stored?
 
-The data is stored locally in the webpage's `localStorage`. It is not sent online by default. The user must be able to clear the stored history.
+The data is stored locally in the browser extension's local storage. It is not sent online by default. The user must be able to clear the stored history.
 
 ### Is it temporary or persistent?
 
