@@ -118,6 +118,12 @@ function startBackgroundService() {
 	});
 }
 
+function renderPatternSequence(events) {
+	const sequence = events.map((event) => event.to).slice(-8);
+	const patternNode = document.getElementById('patternSequence');
+	patternNode.textContent = sequence.length ? sequence.join(' → ') : 'No pattern yet';
+}
+
 function renderPopup(state) {
 	const trackingState = document.getElementById('trackingState');
 	const warningView = document.getElementById('warningView');
@@ -132,8 +138,11 @@ function renderPopup(state) {
 	document.getElementById('historySummary').textContent = `Local history: ${state.events.length} switches`;
 
 	if (latest) {
-		document.getElementById('patternTitle').textContent = `${latest.from} <-> ${latest.to}`;
+		document.getElementById('patternTitle').textContent = `${latest.from} → ${latest.to}`;
 		document.getElementById('patternSummary').textContent = 'These are the tabs Switchboard actually observed switching.';
+		renderPatternSequence(recentEvents);
+	} else {
+		document.getElementById('patternSequence').textContent = 'No pattern yet';
 	}
 
 	if (!state.warning) {
