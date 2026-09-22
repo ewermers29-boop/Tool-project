@@ -78,6 +78,26 @@ I use **Netlify** to deploy the project. The GitHub repository is connected to N
 ## Break Log
 
 - Date: 2026-09-22
+- Commit: `103fe7d`
+- What broke: the popup styling pass changed the visual balance, but the popup still did not occupy enough screen space for the intended warning experience.
+- What changed: the layout was widened and the typography was reduced so the pattern and warning controls could fit more comfortably.
+
+- Date: 2026-09-22
+- Commit: `1de5461`
+- What broke: the popup formatting did not clearly present the tab-switch pattern or the supporting interaction state.
+- What changed: the popup markup, pattern rendering, and styles were updated to show the sequence with clearer controls and denser text.
+
+- Date: 2026-09-22
+- Commit: `0aa52cb`
+- What broke: the warning flow could leave stale state after the previous fix, so the popup did not consistently reflect the current switch count.
+- What changed: the background logic was adjusted to refresh the stored warning state when new tab activation events arrive.
+
+- Date: 2026-09-22
+- Commit: `7079cba`
+- What broke: the extension shell and warning interaction were incomplete after moving from the webpage prototype to the browser extension.
+- What changed: the extension popup and background tab-tracking flow were connected, and the warning controls were added to the interface.
+
+- Date: 2026-09-22
 - Commit: `f9f6bf1`
 - What broke: the extension was not reacting quickly enough to tab changes. The popup stayed stale while the user moved between tabs, and the warning threshold appeared late or never during a rapid switch sequence.
 - What changed: the background listener logic was tightened to react immediately on activation events, reduce reliance on polling, and keep the recent-event window in sync with each actual tab change.
