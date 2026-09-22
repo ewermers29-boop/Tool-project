@@ -75,6 +75,13 @@ Open `Index.html` in a browser, or use a simple local server through VS Code.
 
 I use **Netlify** to deploy the project. The GitHub repository is connected to Netlify, so the project can be published as a shareable public link.
 
+## Break Log
+
+- Date: 2026-09-22
+- Commit: `f9f6bf1`
+- What broke: the extension was not reacting quickly enough to tab changes. The popup stayed stale while the user moved between tabs, and the warning threshold appeared late or never during a rapid switch sequence.
+- What changed: the background listener logic was tightened to react immediately on activation events, reduce reliance on polling, and keep the recent-event window in sync with each actual tab change.
+
 ## Project Method
 
 This project starts with meaning and boundaries before implementation. Build the smallest visible behavior, test it with real event sequences, and polish only after the meaning is clear. The product constraints are in `docs/systemcharter.md`; implementation steps are in `docs/roadmap.md`.

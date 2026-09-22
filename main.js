@@ -1,6 +1,6 @@
 const STORAGE_KEY = 'switchboardState';
 const WINDOW_MS = 10 * 60 * 1000;
-const WARNING_SWITCHES = 4;
+const WARNING_SWITCHES = 10;
 
 const emptyState = {
 	status: 'tracking',
@@ -144,6 +144,11 @@ function renderPopup(state) {
 
 function startPopup() {
 	chrome.runtime.sendMessage({ type: 'GET_STATE' }, renderPopup);
+
+	document.getElementById('seePatternButton').addEventListener('click', () => {
+		document.getElementById('warningView').classList.add('is-hidden');
+		document.getElementById('patternView').classList.remove('is-hidden');
+	});
 
 	document.getElementById('continueButton').addEventListener('click', () => {
 		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, () => {
