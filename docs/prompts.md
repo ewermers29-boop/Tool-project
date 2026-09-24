@@ -32,3 +32,4 @@ Every AI-generated code response must be followed by a plain-language explanatio
 ## Prompt Log
 
 - Chrome reports that the unpacked extension manifest is missing or unreadable.
+- Set the atmosphere: black typography, a soft-white background, and an intentionally unsettling panel.
