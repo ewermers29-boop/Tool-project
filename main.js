@@ -1,12 +1,13 @@
 const STORAGE_KEY = 'switchboardState';
 const WINDOW_MS = 10 * 60 * 1000;
-const WARNING_SWITCHES = 10;
+const WARNING_SWITCHES = 6;
 
 const emptyState = {
 	status: 'tracking',
 	events: [],
 	lastTabId: null,
 	previousTabId: null,
+	switchesSinceWarning: 0,
 	warning: null
 };
 
@@ -54,29 +55,30 @@ async function recordTabSwitch(tabId) {
 
 	state.events = keepRecentEvents([...state.events, event], now);
 	state.previousTabId = previousTab.id;
+	if (!state.warning) {
+		state.switchesSinceWarning = (state.switchesSinceWarning || 0) + 1;
+	}
 
-	const totalSwitches = state.events.length;
-	const pairEvents = state.events.filter((item) => {
-		const names = new Set([item.from, item.to, event.from, event.to]);
-		return names.size === 2;
-	});
-
-	if (totalSwitches >= WARNING_SWITCHES || pairEvents.length >= WARNING_SWITCHES) {
+	let shouldOpenPopup = false;
+	if (state.switchesSinceWarning >= WARNING_SWITCHES && !state.warning) {
 		state.warning = {
 			from: event.from,
 			to: event.to,
-			count: Math.max(totalSwitches, pairEvents.length),
+			count: state.switchesSinceWarning,
 			timestamp: now,
 			previousTabId: previousTab.id
 		};
+		shouldOpenPopup = true;
+	}
+
+	await writeState(state);
+	if (shouldOpenPopup) {
 		try {
 			chrome.action?.openPopup?.();
 		} catch {
 			// Ignore popup-opening failures in restricted contexts.
 		}
 	}
-
-	await writeState(state);
 }
 
 function startBackgroundService() {
@@ -100,7 +102,7 @@ function startBackgroundService() {
 
 		if (message.type === 'DISMISS_WARNING') {
 			readState()
-				.then((state) => writeState({ ...state, warning: null }))
+				.then((state) => writeState({ ...state, warning: null, switchesSinceWarning: 0 }))
 				.then(() => sendResponse({ ok: true }));
 			return true;
 		}
@@ -110,7 +112,7 @@ function startBackgroundService() {
 				if (state.warning?.previousTabId !== null) {
 					await chrome.tabs.update(state.warning.previousTabId, { active: true }).catch(() => {});
 				}
-				await writeState({ ...state, warning: null });
+				await writeState({ ...state, warning: null, switchesSinceWarning: 0 });
 				sendResponse({ ok: true });
 			});
 			return true;
@@ -153,7 +155,7 @@ function renderPopup(state) {
 
 	patternView.classList.add('is-hidden');
 	warningView.classList.remove('is-hidden');
-	document.getElementById('warningTitle').textContent = `You switched between ${state.warning.from} and ${state.warning.to} ${state.warning.count} times.`;
+	document.getElementById('warningTitle').textContent = `You switched tabs ${state.warning.count} times. The latest switch was ${state.warning.from} → ${state.warning.to}.`;
 	document.getElementById('warningSummary').textContent = 'This is a measured pattern, not a judgment about why it happened.';
 }
 
@@ -161,13 +163,15 @@ function startPopup() {
 	chrome.runtime.sendMessage({ type: 'GET_STATE' }, renderPopup);
 
 	document.getElementById('seePatternButton').addEventListener('click', () => {
-		document.getElementById('warningView').classList.add('is-hidden');
-		document.getElementById('patternView').classList.remove('is-hidden');
+		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, () => {
+			document.getElementById('warningView').classList.add('is-hidden');
+			document.getElementById('patternView').classList.remove('is-hidden');
+		});
 	});
 
 	document.getElementById('continueButton').addEventListener('click', () => {
 		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, () => {
-			document.getElementById('choiceNote').textContent = 'Continuing. The next switch will remain part of the local pattern.';
+			document.getElementById('choiceNote').textContent = 'Continuing. The next notice will appear after six more switches.';
 			document.getElementById('warningView').classList.add('is-hidden');
 			document.getElementById('patternView').classList.remove('is-hidden');
 		});

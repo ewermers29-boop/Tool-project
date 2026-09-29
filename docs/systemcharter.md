@@ -25,11 +25,11 @@ The primary direction is **Instrument Panel**: calm, factual, and scannable. It 
 - **Companion:** warmer language and a supportive tone.
 - **Instrument Panel:** factual summary and user interpretation.
 
-The visual center remains the Instrument Panel. The interruption is only a small layer over it.
+The visual center remains the Instrument Panel. Use Cambria typography, bright colors, and restrained comic-book cues while keeping the measured information factual and scannable. The three choice buttons remain white with bold outlines. The interruption is only a small layer over the panel.
 
 ## Signature Interaction
 
-A pause may appear only after a meaningful repeated pattern, such as switching between School Work and Game six times in twenty minutes. It names the measured windows and count, offers the detailed history, and offers a way to keep going.
+A pause appears after six tab switches. Once resolved, it waits for six more switches before appearing again. It names the latest observed switch and the count in that interval, offers the detailed pattern, and offers ways to continue or return.
 
 There are no lockouts, forced timers, shame labels, or productivity scores.
 

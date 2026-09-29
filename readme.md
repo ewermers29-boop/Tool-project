@@ -51,7 +51,7 @@ The local history remains available. The interface says that the optional summar
 The webpage keeps three responsibilities separate:
 
 - **Input layer:** the form in `Index.html` receives the two labels entered for a switch.
-- **Logic layer:** `main.js` stores events, discards events outside the ten-minute window, counts repeated pairs, and triggers a warning after four switches.
+- **Logic layer:** `main.js` stores events, discards events outside the ten-minute window, and triggers a warning after six switches, then again after each six switches following dismissal.
 - **Output layer:** `Index.html` displays the recorded labels, count, time window, and a visible choice to continue or dismiss the warning. It never blocks navigation.
 
 The existing `Index.html`, `main.js`, and `style.css` provide the complete webpage. No extension manifest or installation is required.

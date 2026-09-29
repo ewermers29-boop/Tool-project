@@ -15,6 +15,11 @@
 - [ ] Add a detailed history view.
 - [x] Add an unavailable tracking state.
 
+## Interface and Warning Cadence
+
+- [x] Use Cambria with bright, restrained comic-book styling and white choice buttons.
+- [x] Show a warning every six switches, restarting the interval when the warning is resolved.
+
 ## Local Activity Layer
 
 - [x] Define an activity event shape: tab names, identifiers, timestamp, and source.
@@ -32,7 +37,9 @@
 
 ## Visible Tests
 
-- [ ] One switch does not interrupt the person.
+- [x] Fewer than six switches do not interrupt the person.
+- [x] The first pause appears on the sixth switch.
+- [x] After resolving a pause, five switches do not trigger another; the sixth does.
 - [ ] Repeated work/distraction switches surface the pause.
 - [ ] The pause names the actual windows and count.
 - [ ] Either choice leaves the person in control.
