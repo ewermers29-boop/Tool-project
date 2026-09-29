@@ -128,7 +128,8 @@ function renderPatternSequence(events) {
 
 function renderPopup(state) {
 	const trackingState = document.getElementById('trackingState');
-	const warningView = document.getElementById('warningView');
+	const warningSplash = document.getElementById('warningSplash');
+	const choiceScreen = document.getElementById('choiceScreen');
 	const patternView = document.getElementById('patternView');
 	const recentEvents = keepRecentEvents(state.events, Date.now());
 	const latest = recentEvents[recentEvents.length - 1];
@@ -148,42 +149,62 @@ function renderPopup(state) {
 	}
 
 	if (!state.warning) {
-		warningView.classList.add('is-hidden');
+		warningSplash.classList.add('is-hidden');
+		choiceScreen.classList.add('is-hidden');
 		patternView.classList.remove('is-hidden');
 		return;
 	}
 
 	patternView.classList.add('is-hidden');
-	warningView.classList.remove('is-hidden');
-	document.getElementById('warningTitle').textContent = `You switched tabs ${state.warning.count} times. The latest switch was ${state.warning.from} → ${state.warning.to}.`;
-	document.getElementById('warningSummary').textContent = 'This is a measured pattern, not a judgment about why it happened.';
+	warningSplash.classList.remove('is-hidden');
+	choiceScreen.classList.add('is-hidden');
 }
 
 function startPopup() {
-	chrome.runtime.sendMessage({ type: 'GET_STATE' }, renderPopup);
+	const warningSplash = document.getElementById('warningSplash');
+	const choiceScreen = document.getElementById('choiceScreen');
+	const patternView = document.getElementById('patternView');
+	const resolveWarning = (callback) => {
+		if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+			callback();
+			return;
+		}
+		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, callback);
+	};
+
+	warningSplash.addEventListener('click', () => {
+		warningSplash.classList.add('is-hidden');
+		choiceScreen.classList.remove('is-hidden');
+	});
 
 	document.getElementById('seePatternButton').addEventListener('click', () => {
-		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, () => {
-			document.getElementById('warningView').classList.add('is-hidden');
-			document.getElementById('patternView').classList.remove('is-hidden');
+		resolveWarning(() => {
+			choiceScreen.classList.add('is-hidden');
+			patternView.classList.remove('is-hidden');
 		});
 	});
 
 	document.getElementById('continueButton').addEventListener('click', () => {
-		chrome.runtime.sendMessage({ type: 'DISMISS_WARNING' }, () => {
-			document.getElementById('choiceNote').textContent = 'Continuing. The next notice will appear after six more switches.';
-			document.getElementById('warningView').classList.add('is-hidden');
-			document.getElementById('patternView').classList.remove('is-hidden');
-		});
+		resolveWarning(() => window.close());
 	});
 
 	document.getElementById('returnButton').addEventListener('click', () => {
-		chrome.runtime.sendMessage({ type: 'RETURN_TO_PREVIOUS_TAB' }, () => window.close());
+		if (typeof chrome !== 'undefined' && chrome.runtime?.sendMessage) {
+			chrome.runtime.sendMessage({ type: 'RETURN_TO_PREVIOUS_TAB' }, () => window.close());
+		} else {
+			window.close();
+		}
 	});
 
 	document.getElementById('clearButton').addEventListener('click', () => {
-		chrome.runtime.sendMessage({ type: 'CLEAR_HISTORY' }, renderPopup);
+		if (typeof chrome !== 'undefined' && chrome.runtime?.sendMessage) {
+			chrome.runtime.sendMessage({ type: 'CLEAR_HISTORY' }, renderPopup);
+		}
 	});
+
+	if (typeof chrome !== 'undefined' && chrome.runtime?.sendMessage) {
+		chrome.runtime.sendMessage({ type: 'GET_STATE' }, renderPopup);
+	}
 }
 
 if (typeof document === 'undefined') {

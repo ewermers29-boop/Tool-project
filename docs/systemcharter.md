@@ -25,11 +25,11 @@ The primary direction is **Instrument Panel**: calm, factual, and scannable. It 
 - **Companion:** warmer language and a supportive tone.
 - **Instrument Panel:** factual summary and user interpretation.
 
-The visual center remains the Instrument Panel. Use Cambria typography, bright colors, and restrained comic-book cues while keeping the measured information factual and scannable. The three choice buttons remain white with bold outlines. The interruption is only a small layer over the panel.
+The normal view remains the factual Instrument Panel, set in Cambria. A warning takes over the popup with a red comic-book impact screen and a large **WARNING!** burst. Clicking the screen opens a separate red choice screen with only **Pattern detected** at the top and three white buttons with bold outlines.
 
 ## Signature Interaction
 
-A pause appears after six tab switches. Once resolved, it waits for six more switches before appearing again. It names the latest observed switch and the count in that interval, offers the detailed pattern, and offers ways to continue or return.
+A pause appears after six tab switches. Its red WARNING splash advances on click to a minimal choice screen. Once a choice resolves the warning, it waits for six more switches before appearing again. The choices offer the detailed pattern, continuing, or returning to the previous tab.
 
 There are no lockouts, forced timers, shame labels, or productivity scores.
 
