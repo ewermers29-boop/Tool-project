@@ -25,7 +25,7 @@ The primary direction is **Instrument Panel**: calm, factual, and scannable. It 
 - **Companion:** warmer language and a supportive tone.
 - **Instrument Panel:** factual summary and user interpretation.
 
-The normal view remains the factual Instrument Panel, set in Cambria. A warning takes over the popup with a red comic-book impact screen and a large **WARNING!** burst. Clicking the screen opens a separate red choice screen with only **Pattern detected** at the top and three white buttons with bold outlines.
+The normal view remains the factual Instrument Panel, set in Cambria. A tracking-status label stays visible on every popup screen. A warning takes over the popup with a red comic-book impact screen and a large **WARNING!** burst. Clicking the screen opens a separate red choice screen with only **Pattern detected** at the top and three white buttons with bold outlines.
 
 ## Signature Interaction
 

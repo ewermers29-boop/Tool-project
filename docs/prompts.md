@@ -35,3 +35,4 @@ Every AI-generated code response must be followed by a plain-language explanatio
 - Set the atmosphere: black typography, a soft-white background, and an intentionally unsettling panel.
 - Warm up the interface with Cambria typography, bright colors, and a restrained comic-book look; keep the three choice buttons white. Show the pause after six switches, then wait six more switches after each dismissal before showing it again.
 - Make the warning screen unmistakably different: use a red background with a large comic-book WARNING burst. Clicking it opens a second screen with only “Pattern detected” at the top and the three white buttons. Keep all writing in Cambria.
+- Keep a tracking-status label visible on every popup screen so it is always clear whether Switchboard is tracking.

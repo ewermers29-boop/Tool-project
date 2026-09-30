@@ -18,6 +18,7 @@
 ## Interface and Warning Cadence
 
 - [x] Use Cambria and a red comic-book WARNING splash that opens a minimal choice screen with three white buttons.
+- [x] Keep the tracking-status label visible on every popup screen.
 - [x] Show a warning every six switches, restarting the interval when the warning is resolved.
 
 ## Local Activity Layer
@@ -41,6 +42,7 @@
 - [x] The first pause appears on the sixth switch.
 - [x] After resolving a pause, five switches do not trigger another; the sixth does.
 - [x] Clicking the warning splash opens a screen with only the heading and three choices.
+- [x] The tracking status remains visible on the pattern, warning, and choice screens.
 - [ ] Repeated work/distraction switches surface the pause.
 - [ ] The pause names the actual windows and count.
 - [ ] Either choice leaves the person in control.

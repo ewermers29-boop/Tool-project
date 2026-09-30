@@ -8,7 +8,7 @@ body { width: 360px; height: 600px; margin: 0 auto; background: #e52b3b; color: 
 h1 { margin: 8px 0 0; font-size: 22px; }
 h2 { margin: 14px 0 8px; font-size: 24px; line-height: 1.15; }
 p { line-height: 1.45; }
-.tracking-state { border: 2px solid #18212b; padding: 5px 7px; background: #a8edcf; }
+.tracking-state { position: absolute; z-index: 2; top: 14px; right: 14px; border: 2px solid #18212b; padding: 5px 7px; background: #a8edcf; pointer-events: none; }
 .tracking-state.is-error { border-color: #d32945; color: #a51630; background: #ffe1df; }
 .pattern-view { padding: 0; }
 .signal-label { margin: 22px 0 9px; color: #087d9a; }
@@ -26,7 +26,7 @@ footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 2
 .comic-burst::after { inset: 8px; background: #ffdf35; }
 .comic-burst span { z-index: 1; color: #e52b3b; font-size: clamp(45px, 14vw, 66px); font-weight: 900; line-height: .9; text-shadow: 2px 2px 0 #fff; -webkit-text-stroke: 1px #18212b; transform: rotate(-7deg); }
 .splash-prompt { font-size: 13px; font-weight: 700; text-transform: uppercase; }
-.choice-screen { display: flex; flex-direction: column; gap: 28px; padding: 30px 22px; }
+.choice-screen { display: flex; flex-direction: column; gap: 28px; padding: 62px 22px 30px; }
 .choice-screen h1 { margin: 0; border: 2px solid #18212b; padding: 12px 10px; background: #ffdf35; box-shadow: 4px 4px 0 #18212b; font-size: 26px; text-align: center; text-transform: uppercase; }
 .choice-actions { display: grid; gap: 14px; margin: auto 0; }
 .button { width: 100%; min-height: 58px; border: 3px solid #18212b; border-radius: 2px; padding: 13px 14px; background: #fff; color: #18212b; box-shadow: 4px 4px 0 #18212b; cursor: pointer; font: 700 16px Cambria, Georgia, serif; text-align: left; transition: transform 100ms ease, box-shadow 100ms ease; }
@@ -41,5 +41,5 @@ footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 2
 .is-hidden { display: none; }
 @media (max-width: 420px) {
 	.panel { padding: 20px 18px; }
-	.choice-screen { padding: 26px 18px; }
+	.choice-screen { padding: 58px 18px 26px; }
 }
